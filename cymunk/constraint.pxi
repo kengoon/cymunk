@@ -20,7 +20,7 @@ http://www.youtube.com/watch?v=ZgJJZTS0aMM
 constraint_handlers = {}
 
 cdef void _call_constraint_presolve_func(cpConstraint *constraint,
-    cpSpace *space):
+    cpSpace *space) noxecept:
     global constraint_handlers
     py_space = <object><void *>space.data
     py_constraint = <object><void *>constraint.data
@@ -28,7 +28,7 @@ cdef void _call_constraint_presolve_func(cpConstraint *constraint,
     constraint_dict['pre_solve'](py_constraint, py_space)
 
 cdef void _call_constraint_postsolve_func(cpConstraint *constraint, 
-    cpSpace *space):
+    cpSpace *space) noexcept:
     global constraint_handlers
     py_space = <object><void *>space.data
     py_constraint = <object><void *>constraint.data
