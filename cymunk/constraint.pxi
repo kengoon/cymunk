@@ -20,7 +20,7 @@ http://www.youtube.com/watch?v=ZgJJZTS0aMM
 constraint_handlers = {}
 
 cdef void _call_constraint_presolve_func(cpConstraint *constraint,
-    cpSpace *space) noxecept:
+    cpSpace *space) noexcept:
     global constraint_handlers
     py_space = <object><void *>space.data
     py_constraint = <object><void *>constraint.data
