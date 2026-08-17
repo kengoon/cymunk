@@ -40,11 +40,6 @@ c_chipmunk_files = [join(c_chipmunk_src, x) for x in (
 
 if have_cython:
     cymunk_files = [
-        'cymunk/constraint.pxi',
-        'cymunk/core.pxi',
-        'cymunk/space.pxi',
-        'cymunk/shape.pxi',
-        'cymunk/body.pxi',
         'cymunk/cymunk.pyx'
         ]
     cmdclass = {'build_ext': build_ext}
@@ -52,10 +47,15 @@ else:
     cymunk_files = ['cymunk/cymunk.c']
     cmdclass = {}
 
+extra_compile_args = [cstdarg, '-ffast-math', '-fPIC', '-DCHIPMUNK_FFI']
+
+if platform == "darwin":
+    extra_compile_args += ['-Wno-implicit-function-declaration', '-Wno-incompatible-function-pointer-types']
+
 ext = Extension('cymunk.cymunk',
     cymunk_files + c_chipmunk_files,
     include_dirs=c_chipmunk_incs,
-    extra_compile_args=[cstdarg, '-ffast-math', '-fPIC', '-DCHIPMUNK_FFI'])
+    extra_compile_args=extra_compile_args)
  
 
 setup(
