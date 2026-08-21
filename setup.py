@@ -51,6 +51,8 @@ extra_compile_args = [cstdarg, '-ffast-math', '-fPIC', '-DCHIPMUNK_FFI']
 
 if platform == "darwin":
     extra_compile_args += ['-Wno-implicit-function-declaration', '-Wno-incompatible-function-pointer-types']
+elif platform == "linux":
+    extra_compile_args += ['-Wno-error=incompatible-pointer-types', '-Wno-error=implicit-function-declaration']
 
 ext = Extension('cymunk.cymunk',
     cymunk_files + c_chipmunk_files,
